@@ -1,15 +1,35 @@
 import React from "react";
 import "./TaskForm.css";
 import Tag from "./Tag";
+import { useState } from "react";
 
 function TaskForm() {
+  const [taskData, setTaskData] = useState({
+    task: "",
+    status: "Ready for development",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setTaskData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(taskData);
+  }
+
   return (
     <header className="app_header">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="task"
           className="task_input"
           placeholder="Enter task details"
+          onChange={handleChange}
         />
         <div className="task_form_bottom">
           <div>
@@ -18,7 +38,11 @@ function TaskForm() {
             <Tag tagname="Product Owner" />
           </div>
           <div className="taskform_select_sec">
-            <select className="task_status">
+            <select
+              className="task_status"
+              onChange={handleChange}
+              name="status"
+            >
               <option value="Ready for development">
                 Ready for development
               </option>
