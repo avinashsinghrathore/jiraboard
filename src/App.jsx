@@ -8,6 +8,12 @@ function App() {
   const [tasks, setTasks] = useState([]);
   // console.log(tasks);
 
+  const handleDelete = (taskIndex) => {
+    const newTask = tasks.filter((tasks, index) => index !== taskIndex);
+    setTasks(newTask);
+    console.log(newTask);
+  };
+
   return (
     <div className="app">
       <h1 style={{ textAlign: "center", margin: "50px" }}>Jira Board</h1>
@@ -17,18 +23,26 @@ function App() {
           title="Ready for development"
           tasks={tasks}
           status="Ready for development"
+          handleDelete={handleDelete}
         />
-        <TaskColumn title="In progress" tasks={tasks} status="In progress" />
+        <TaskColumn
+          title="In progress"
+          tasks={tasks}
+          status="In progress"
+          handleDelete={handleDelete}
+        />
         <TaskColumn
           title="Ready for test"
           tasks={tasks}
           status="Ready for test"
+          handleDelete={handleDelete}
         />
         <TaskColumn
           title="Closed"
           icon={closedIcon}
           tasks={tasks}
           status="Closed"
+          handleDelete={handleDelete}
         />
       </main>
     </div>
