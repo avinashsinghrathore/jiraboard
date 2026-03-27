@@ -26,7 +26,13 @@ function TaskForm({ setTasks }) {
     setTasks((prev) => {
       return [...prev, taskData];
     });
-    // console.log(taskData);
+
+    //this will clean the form once data is submitted
+    setTaskData({
+      task: "",
+      status: "Ready for development",
+      tags: [],
+    });
   }
 
   function selectedTag(tag) {
@@ -46,6 +52,7 @@ function TaskForm({ setTasks }) {
         <input
           type="text"
           name="task"
+          value={taskData.task}
           className="task_input"
           placeholder="Enter task details"
           onChange={handleChange}
@@ -73,6 +80,7 @@ function TaskForm({ setTasks }) {
               className="task_status"
               onChange={handleChange}
               name="status"
+              value={taskData.status}
             >
               <option value="Ready for development">
                 Ready for development
