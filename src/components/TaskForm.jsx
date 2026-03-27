@@ -3,7 +3,7 @@ import "./TaskForm.css";
 import Tag from "./Tag";
 import { useState } from "react";
 
-function TaskForm() {
+function TaskForm({ setTasks }) {
   const [taskData, setTaskData] = useState({
     task: "",
     status: "Ready for development",
@@ -23,7 +23,10 @@ function TaskForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(taskData);
+    setTasks((prev) => {
+      return [...prev, taskData];
+    });
+    // console.log(taskData);
   }
 
   function selectedTag(tag) {
@@ -35,7 +38,7 @@ function TaskForm() {
       return { ...prev, tags };
     });
   }
-  console.log(taskData);
+  // console.log(taskData);
 
   return (
     <header className="app_header">
