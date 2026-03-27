@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TaskForm from "./components/TaskForm";
 import TaskColumn from "./components/TaskColumn";
 import closedIcon from "./assets/icon_ok.jpg";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  // console.log(tasks);
+  const getLocalStorage = localStorage.getItem("tasks");
+  // console.log("getLocalStorage", getLocalStorage);
+
+  // const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(JSON.parse(getLocalStorage));
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleDelete = (taskIndex) => {
     const newTask = tasks.filter((tasks, index) => index !== taskIndex);
     setTasks(newTask);
-    console.log(newTask);
   };
 
   return (
