@@ -12,6 +12,21 @@ function App() {
   const [tasks, setTasks] = useState(JSON.parse(getLocalStorage) || []);
   const [activeCard, setActiveCard] = useState(null);
 
+  const onDrop = (status, position) => {
+    console.log(
+      `${activeCard} is going to place into ${status} and at position ${position}`,
+    );
+    if (activeCard === null || activeCard === undefined) return;
+
+    const taskToMove = tasks[activeCard];
+    const updatedTasks = tasks.filter((task, index) => index !== activeCard);
+    updatedTasks.splice(position, 0, {
+      ...taskToMove,
+      status: status,
+    });
+    setTasks(updatedTasks);
+  };
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -32,6 +47,7 @@ function App() {
           status="Ready for development"
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
         <TaskColumn
           title="In progress"
@@ -39,6 +55,7 @@ function App() {
           status="In progress"
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
         <TaskColumn
           title="Ready for test"
@@ -46,6 +63,7 @@ function App() {
           status="Ready for test"
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
         <TaskColumn
           title="Closed"
@@ -54,9 +72,9 @@ function App() {
           status="Closed"
           handleDelete={handleDelete}
           setActiveCard={setActiveCard}
+          onDrop={onDrop}
         />
       </main>
-      <h3>active Card{activeCard}</h3>
     </div>
   );
 }

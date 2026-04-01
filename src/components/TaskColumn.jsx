@@ -10,6 +10,7 @@ function TaskColumn({
   icon,
   handleDelete,
   setActiveCard,
+  onDrop,
 }) {
   return (
     <div>
@@ -18,7 +19,7 @@ function TaskColumn({
           <img src={icon} alt="" className="task_column_icon" />
           {title}
         </h2>
-        <DropArea />
+        <DropArea onDrop={() => onDrop(status, 0)} />
         {tasks.map(
           (task, index) =>
             task.status === status && (
@@ -31,7 +32,7 @@ function TaskColumn({
                   index={index}
                   setActiveCard={setActiveCard}
                 />
-                <DropArea />
+                <DropArea onDrop={() => onDrop(status, index + 1)} />
               </React.Fragment>
             ),
         )}

@@ -2,7 +2,7 @@ import React from "react";
 import "./DropArea.css";
 import { useState } from "react";
 
-function DropArea() {
+function DropArea({ onDrop }) {
   const [showDrop, setShowDrop] = useState(false);
   return (
     <section
@@ -13,8 +13,13 @@ function DropArea() {
       onDragLeave={() => {
         setShowDrop(false);
       }}
+      onDrop={() => {
+        onDrop();
+        setShowDrop(false);
+      }}
+      onDragOver={(e) => e.preventDefault()}
     >
-      Drop area here
+      Drop area
     </section>
   );
 }
